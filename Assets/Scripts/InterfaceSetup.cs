@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class InterfaceSetup : MonoBehaviour {
 
@@ -7,10 +8,16 @@ public class InterfaceSetup : MonoBehaviour {
     public Transform[] threePlayerPoints;
     public Transform[] fourPlayerPoints;
 
-    public GameObject playerInterface;
+    public Player playerInterface;
 
-    public bool SetupUI(int playerNum)
+    public List<Player> currentUI;
+
+    public List<Player> SetupUI(int playerNum)
     {
+        if(currentUI.Count != 0)
+        {
+            DestroyUI();
+        }
         switch (playerNum)
         {
             case 2:
@@ -18,25 +25,37 @@ public class InterfaceSetup : MonoBehaviour {
                 {
                     Transform _temp = Instantiate(playerInterface).GetComponent<Transform>();
                     _temp.position = twoPlayerPoints[count].position;
+                    currentUI.Add(_temp.GetComponent<Player>());
                 }
-                return true;
+                return currentUI;
 
             case 3:
                 for (int count = 0; count < playerNum; count++)
                 {
                     Transform _temp = Instantiate(playerInterface).GetComponent<Transform>();
                     _temp.position = threePlayerPoints[count].position;
+                    currentUI.Add(_temp.GetComponent<Player>());
                 }
-                return true;
+                return currentUI;
 
             case 4:
                 for (int count = 0; count < playerNum; count++)
                 {
                     Transform _temp = Instantiate(playerInterface).GetComponent<Transform>();
                     _temp.position = fourPlayerPoints[count].position;
+                    currentUI.Add(_temp.GetComponent<Player>());
                 }
-                return true;
+                return currentUI;
         }
-        return false;
+        return null;
+    }
+
+    public void DestroyUI()
+    {
+        for (int count = 0; count < currentUI.Count; count++)
+        {
+            Destroy(currentUI[count]);
+        }
+        currentUI.Clear();
     }
 }
