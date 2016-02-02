@@ -53,6 +53,7 @@ public class WordEntry : MonoBehaviour {
 
     public IEnumerator InputCoroutine()
     {
+        GameManager.instance.interfaceSetup.text.text = "Player 1, enter a word.";
         isRunning = true;
         entered = false;
         do
@@ -62,6 +63,7 @@ public class WordEntry : MonoBehaviour {
         passwords[0] = myInputField.text;
         ResetField();
         entered = false;
+        GameManager.instance.interfaceSetup.text.text = "Player 2, enter a word.";
         do
         {
             yield return new WaitForEndOfFrame();
@@ -71,6 +73,7 @@ public class WordEntry : MonoBehaviour {
         if (passwords.Count() == 3)
         {
             entered = false;
+            GameManager.instance.interfaceSetup.text.text = "Player 3, enter a word.";
             do
             {
                 yield return new WaitForEndOfFrame();
@@ -80,6 +83,7 @@ public class WordEntry : MonoBehaviour {
             if (passwords.Count() == 4)
             {
                 entered = false;
+                GameManager.instance.interfaceSetup.text.text = "Player 4, enter a word.";
                 do
                 {
                     yield return new WaitForEndOfFrame();

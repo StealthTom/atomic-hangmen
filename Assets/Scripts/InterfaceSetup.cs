@@ -18,6 +18,10 @@ public class InterfaceSetup : MonoBehaviour {
 
     public bool setup;
 
+    public Text text;
+
+    public Transform playerParent;
+
     public List<Player> SetupUI(int playerNum)
     {
         if(currentUI.Count != 0)
@@ -30,7 +34,7 @@ public class InterfaceSetup : MonoBehaviour {
                 for (int count = 0; count < playerNum; count++)
                 {
                     Transform _temp = Instantiate(playerInterface).GetComponent<Transform>();
-                    _temp.transform.SetParent(transform);
+                    _temp.transform.SetParent(playerParent);
                     _temp.position = twoPlayerPoints[count].position;
                     _temp.localScale = new Vector3(1, 1, 1);
                     currentUI.Add(_temp.GetComponent<Player>());
@@ -42,7 +46,7 @@ public class InterfaceSetup : MonoBehaviour {
                 for (int count = 0; count < playerNum; count++)
                 {
                     Transform _temp = Instantiate(playerInterface).GetComponent<Transform>();
-                    _temp.transform.SetParent(transform);
+                    _temp.transform.SetParent(playerParent);
                     _temp.position = threePlayerPoints[count].position;
                     _temp.localScale = new Vector3(1, 1, 1);
                     currentUI.Add(_temp.GetComponent<Player>());
@@ -54,7 +58,7 @@ public class InterfaceSetup : MonoBehaviour {
                 for (int count = 0; count < playerNum; count++)
                 {
                     Transform _temp = Instantiate(playerInterface).GetComponent<Transform>();
-                    _temp.transform.SetParent(transform);
+                    _temp.transform.SetParent(playerParent);
                     _temp.position = fourPlayerPoints[count].position;
                     _temp.localScale = new Vector3(1,1,1);
                     currentUI.Add(_temp.GetComponent<Player>());

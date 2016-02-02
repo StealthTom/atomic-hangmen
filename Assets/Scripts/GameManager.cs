@@ -182,6 +182,7 @@ public class GameManager : MonoSingleton<GameManager> {
             case GameState.State.Play:
                 playEntry.gameObject.SetActive(true);
                 playEntry.enabled = true;
+                playEntry.isRunning = true;
                 break;
 
             case GameState.State.End:
