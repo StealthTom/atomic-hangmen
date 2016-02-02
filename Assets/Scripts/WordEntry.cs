@@ -13,6 +13,8 @@ public class WordEntry : MonoBehaviour {
 
     public bool isRunning = false;
 
+    public bool entered = false;
+
     public string[] passwords;
 
     void Awake()
@@ -23,6 +25,18 @@ public class WordEntry : MonoBehaviour {
         {
             Regex rgx = new Regex("[^a-zA-Z0-9 -]");
             words[count] = rgx.Replace(words[count], "");
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return) && isRunning == true)
+        {
+            EnterInput();
+        }
+        if (isRunning == true && passwords[passwords.Length-1] != null)
+        {
+            isRunning = false;
         }
     }
 
@@ -40,43 +54,49 @@ public class WordEntry : MonoBehaviour {
     public IEnumerator InputCoroutine()
     {
         isRunning = true;
+        entered = false;
         do
         {
             yield return new WaitForEndOfFrame();
-        } while (ConfirmInput() == null);
+        } while (entered == false);
         passwords[0] = myInputField.text;
         ResetField();
+        entered = false;
         do
         {
             yield return new WaitForEndOfFrame();
-        } while (ConfirmInput() == null);
+        } while (entered == false);
         passwords[1] = myInputField.text;
         ResetField();
         if (passwords.Count() == 3)
         {
+            entered = false;
             do
             {
                 yield return new WaitForEndOfFrame();
-            } while (ConfirmInput() == null);
+            } while (entered == false);
             passwords[2] = myInputField.text;
             ResetField();
             if (passwords.Count() == 4)
             {
+                entered = false;
                 do
                 {
                     yield return new WaitForEndOfFrame();
-                } while (ConfirmInput() == null);
+                } while (entered == false);
                 passwords[3] = myInputField.text;
                 ResetField();
+                entered = false;
             }
         }
     }
 
-    public string ConfirmInput()
+    public string EnterInput()
     {
+        Debug.Log("hi");
         if (QueryWord(myInputField.text))
         {
-            return myInputField.text;
+            entered = true;
         }
         return null;
     }

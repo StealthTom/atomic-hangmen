@@ -8,6 +8,7 @@ public class GameState : MonoSingleton<GameState> {
         None,
         PlayerNumSelect,
         WordEntry,
+        InterfaceSetup,
         Play,
         End
     }
