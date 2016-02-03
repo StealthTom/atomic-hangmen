@@ -25,6 +25,8 @@ public class WordEntry : MonoBehaviour {
         {
             Regex rgx = new Regex("[^a-zA-Z0-9 -]");
             words[count] = rgx.Replace(words[count], "");
+            words[count] = words[count].ToUpper();
+            
         }
     }
 
@@ -60,7 +62,7 @@ public class WordEntry : MonoBehaviour {
         {
             yield return new WaitForEndOfFrame();
         } while (entered == false);
-        passwords[0] = myInputField.text;
+        passwords[0] = myInputField.text.ToUpper();
         ResetField();
         entered = false;
         GameManager.instance.interfaceSetup.text.text = "Player 2, enter a word.";
@@ -68,7 +70,7 @@ public class WordEntry : MonoBehaviour {
         {
             yield return new WaitForEndOfFrame();
         } while (entered == false);
-        passwords[1] = myInputField.text;
+        passwords[1] = myInputField.text.ToUpper();
         ResetField();
         if (passwords.Count() == 3)
         {
@@ -78,7 +80,7 @@ public class WordEntry : MonoBehaviour {
             {
                 yield return new WaitForEndOfFrame();
             } while (entered == false);
-            passwords[2] = myInputField.text;
+            passwords[2] = myInputField.text.ToUpper();
             ResetField();
             if (passwords.Count() == 4)
             {
@@ -88,7 +90,7 @@ public class WordEntry : MonoBehaviour {
                 {
                     yield return new WaitForEndOfFrame();
                 } while (entered == false);
-                passwords[3] = myInputField.text;
+                passwords[3] = myInputField.text.ToUpper();
                 ResetField();
                 entered = false;
             }
@@ -107,7 +109,7 @@ public class WordEntry : MonoBehaviour {
 
 	public bool QueryWord(string s)
     {
-        return words.Contains(s);
+        return words.Contains(s.ToUpper());
     }
 
     public void ResetField()

@@ -50,7 +50,7 @@ public class PlayEntry : MonoBehaviour
     public bool WordCheck()
     {
         Debug.Log("WordCheck " + myInputField.text);
-        if (myInputField.text == GameManager.instance.interfaceSetup.currentUI[currentPlayerIndex].word)
+        if (myInputField.text.ToUpper() == GameManager.instance.interfaceSetup.currentUI[currentPlayerIndex].word)
         {
             GameManager.instance.interfaceSetup.text.text = "Player " + (currentPlayerIndex + 1) + " Has Won!";
             for (int count = 0; count < GameManager.instance.interfaceSetup.currentUI[currentPlayerIndex].letters.Count; count++)
@@ -70,7 +70,7 @@ public class PlayEntry : MonoBehaviour
         {
             for (int count = 0; count < GameManager.instance.interfaceSetup.currentUI[i].letters.Count; count++)
             {
-                if (char.ToString(GameManager.instance.interfaceSetup.currentUI[i].letters[count].letter) == myInputField.text)
+                if (char.ToString(GameManager.instance.interfaceSetup.currentUI[i].letters[count].letter) == myInputField.text.ToUpper())
                 {
                     GameManager.instance.interfaceSetup.currentUI[i].letters[count].GetComponent<Text>().enabled = true;
                 }
