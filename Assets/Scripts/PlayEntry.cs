@@ -22,7 +22,7 @@ public class PlayEntry : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(currentPlayerIndex > GameManager.playerNum)
+        if(currentPlayerIndex > GameManager.playerNum-1)
         {
             currentPlayerIndex = 0;
         }
