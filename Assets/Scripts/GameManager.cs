@@ -13,6 +13,7 @@ public class GameManager : MonoSingleton<GameManager> {
 
     public WordEntry wordEntry;
     public PlayEntry playEntry;
+    public GameObject resetCanvas;
 
     public string[] passwords;
 
@@ -31,10 +32,19 @@ public class GameManager : MonoSingleton<GameManager> {
 
 	// Use this for initialization
 	void Awake () {
+        StartListening();
         _playerNum = 0;
         passwords = null;
-        StartListening();
+        if(WordList.initialized == false)
+        {
+            WordList.InitializeList();
+        }
 	}
+
+    void Start()
+    {
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -68,14 +78,41 @@ public class GameManager : MonoSingleton<GameManager> {
                 break;
 
             case GameState.State.Play:
-
+                if(playEntry.won == true)
+                {
+                    GameState.RaiseGameStateChange(GameState.State.End);
+                }
                 break;
 
             case GameState.State.End:
 
                 break;
+
+            case GameState.State.None:
+                StartListening();
+                GameState.RaiseGameStateChange(GameState.State.PlayerNumSelect);
+                break;
+
+            default:
+                //GameState.RaiseGameStateChange(GameState.State.PlayerNumSelect);
+                break;
         }
 	}
+
+    public void ResetGame()
+    {
+        _playerNum = 0;
+        passwords = null;
+        interfaceSetup.DestroyUI();
+        interfaceSetup.gameObject.SetActive(false);
+        playEntry.won = false;
+        playEntry.currentPlayerIndex = 0;
+        playEntry.gameObject.SetActive(false);
+        wordEntry.gameObject.SetActive(false);
+        wordEntry.entered = false;
+        resetCanvas.gameObject.SetActive(false);
+        GameState.RaiseGameStateChange(GameState.State.None);
+    }
 
     void StartListening()
     {
@@ -112,9 +149,8 @@ public class GameManager : MonoSingleton<GameManager> {
 
             case GameState.State.Play:
                 Debug.Log("Leaving Play.");
-                interfaceSetup.gameObject.SetActive(false);
-                playEntry.enabled = true;
-                playEntry.gameObject.SetActive(true);
+                playEntry.enabled = false;
+                playEntry.gameObject.SetActive(false);
                 break;
 
             case GameState.State.End:
@@ -126,7 +162,7 @@ public class GameManager : MonoSingleton<GameManager> {
         switch (newState)
         {
             case GameState.State.None:
-                Debug.LogError("Error, state has become none.");
+
                 break;
 
             case GameState.State.PlayerNumSelect:
@@ -186,6 +222,7 @@ public class GameManager : MonoSingleton<GameManager> {
                 break;
 
             case GameState.State.End:
+                resetCanvas.SetActive(true);
                 break;
         }
     }

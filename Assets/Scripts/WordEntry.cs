@@ -17,19 +17,6 @@ public class WordEntry : MonoBehaviour {
 
     public string[] passwords;
 
-    void Awake()
-    {
-        var textAsset = Resources.Load("wordlist", typeof(TextAsset)) as TextAsset;
-        words = textAsset.text.Split("\n"[0]).ToList();
-        for(int count = 0; count < words.Count; count++)
-        {
-            Regex rgx = new Regex("[^a-zA-Z0-9 -]");
-            words[count] = rgx.Replace(words[count], "");
-            words[count] = words[count].ToUpper();
-            
-        }
-    }
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return) && isRunning == true)
@@ -109,7 +96,7 @@ public class WordEntry : MonoBehaviour {
 
 	public bool QueryWord(string s)
     {
-        return words.Contains(s.ToUpper());
+        return WordList.words.Contains(s.ToUpper());
     }
 
     public void ResetField()

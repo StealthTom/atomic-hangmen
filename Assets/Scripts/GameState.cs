@@ -13,11 +13,6 @@ public class GameState : MonoSingleton<GameState> {
         End
     }
 
-    void Start()
-    {
-        RaiseGameStateChange(State.PlayerNumSelect);
-    }
-
     private static State _currentState;
     public static State currentState
     {
