@@ -26,7 +26,25 @@ public class PlayEntry : MonoBehaviour
         {
             currentPlayerIndex = 0;
         }
-        if(won == false)
+        if(GameManager.playerNum == 2)
+        {
+            GameManager.instance.interfaceSetup.text.transform.position = GameManager.instance.interfaceSetup.twoPlayerPoints[currentPlayerIndex].position;
+            myInputField.transform.position = GameManager.instance.interfaceSetup.twoPlayerPoints[currentPlayerIndex].position;
+            GameManager.instance.interfaceSetup.text.transform.position = new Vector2(GameManager.instance.interfaceSetup.text.transform.position.x, GameManager.instance.interfaceSetup.text.transform.position.y-100);
+        }
+        else if (GameManager.playerNum == 3)
+        {
+            GameManager.instance.interfaceSetup.text.transform.position = GameManager.instance.interfaceSetup.threePlayerPoints[currentPlayerIndex].position;
+            myInputField.transform.position = GameManager.instance.interfaceSetup.threePlayerPoints[currentPlayerIndex].position;
+            GameManager.instance.interfaceSetup.text.transform.position = new Vector2(GameManager.instance.interfaceSetup.text.transform.position.x, GameManager.instance.interfaceSetup.text.transform.position.y - 100);
+        }
+        else if (GameManager.playerNum == 4)
+        {
+            GameManager.instance.interfaceSetup.text.transform.position = GameManager.instance.interfaceSetup.fourPlayerPoints[currentPlayerIndex].position;
+            myInputField.transform.position = GameManager.instance.interfaceSetup.fourPlayerPoints[currentPlayerIndex].position;
+            GameManager.instance.interfaceSetup.text.transform.position = new Vector2(GameManager.instance.interfaceSetup.text.transform.position.x, GameManager.instance.interfaceSetup.text.transform.position.y - 100);
+        }
+        if (won == false)
         {
             GameManager.instance.interfaceSetup.text.text = "Player " + (currentPlayerIndex + 1) + " Turn";
         }
@@ -73,6 +91,8 @@ public class PlayEntry : MonoBehaviour
                 if (char.ToString(GameManager.instance.interfaceSetup.currentUI[i].letters[count].letter) == myInputField.text.ToUpper())
                 {
                     GameManager.instance.interfaceSetup.currentUI[i].letters[count].GetComponent<Text>().enabled = true;
+                    GameManager.instance.interfaceSetup.currentUI[i].letters[count].cycle = false;
+                    GameManager.instance.interfaceSetup.currentUI[i].letters[count].GetComponent<Text>().text = myInputField.text;
                 }
             }
         }

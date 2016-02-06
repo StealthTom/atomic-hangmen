@@ -32,7 +32,6 @@ public class GameManager : MonoSingleton<GameManager> {
 
 	// Use this for initialization
 	void Awake () {
-        StartListening();
         _playerNum = 0;
         passwords = null;
         if(WordList.initialized == false)
@@ -139,6 +138,7 @@ public class GameManager : MonoSingleton<GameManager> {
 
             case GameState.State.WordEntry:
                 Debug.Log("Leaving WordEntry.");
+                wordEntry.text.gameObject.SetActive(false);
                 wordEntry.enabled = false;
                 wordEntry.gameObject.SetActive(false);
                 break;
@@ -162,7 +162,7 @@ public class GameManager : MonoSingleton<GameManager> {
         switch (newState)
         {
             case GameState.State.None:
-
+                StopListening();
                 break;
 
             case GameState.State.PlayerNumSelect:
@@ -176,6 +176,7 @@ public class GameManager : MonoSingleton<GameManager> {
                 break;
 
             case GameState.State.InterfaceSetup:
+                Debug.Log("Entering InterfaceSetup");
                 interfaceSetup.gameObject.SetActive(true);
                 interfaceSetup.SetupUI(playerNum);
                 List<int> nums = new List<int> { };
@@ -185,10 +186,8 @@ public class GameManager : MonoSingleton<GameManager> {
                 }
                 if (playerNum == 2)
                 {
-                    nums.Remove(1);
-                    int _rand = Random.Range(0, nums.Count);
-                    interfaceSetup.currentUI[0].word = passwords[nums[_rand - 1]];
-                    interfaceSetup.currentUI[_rand - 1].word = passwords[0];
+                    interfaceSetup.currentUI[0].word = passwords[1];
+                    interfaceSetup.currentUI[1].word = passwords[0];
                 }
                 if (playerNum == 3)
                 {

@@ -31,12 +31,16 @@ public class GameState : MonoSingleton<GameState> {
 
     public static void RaiseGameStateChange(State newState)
     {
-        State prevState = _currentState;
-        _currentState = newState;
-
-        if (GameStateChanged != null)
+        Debug.Log("CurrentState is " + _currentState + " Changing state to " + newState);
+        if (newState == _currentState)
         {
-            GameStateChanged(prevState, newState);
+
+        }
+        else if (GameStateChanged != null)
+        {
+                State prevState = _currentState;
+                _currentState = newState;
+                GameStateChanged(prevState, newState);
         }
     }
 

@@ -17,6 +17,11 @@ public class WordEntry : MonoBehaviour {
 
     public string[] passwords;
 
+    public Text text;
+
+    public Sprite blue;
+    public Sprite red;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return) && isRunning == true)
@@ -42,7 +47,7 @@ public class WordEntry : MonoBehaviour {
 
     public IEnumerator InputCoroutine()
     {
-        GameManager.instance.interfaceSetup.text.text = "Player 1, enter a word.";
+        text.text = "Player 1, enter a word.";
         isRunning = true;
         entered = false;
         do
@@ -52,7 +57,7 @@ public class WordEntry : MonoBehaviour {
         passwords[0] = myInputField.text.ToUpper();
         ResetField();
         entered = false;
-        GameManager.instance.interfaceSetup.text.text = "Player 2, enter a word.";
+        text.text = "Player 2, enter a word.";
         do
         {
             yield return new WaitForEndOfFrame();
@@ -62,7 +67,7 @@ public class WordEntry : MonoBehaviour {
         if (passwords.Count() == 3)
         {
             entered = false;
-            GameManager.instance.interfaceSetup.text.text = "Player 3, enter a word.";
+            text.text = "Player 3, enter a word.";
             do
             {
                 yield return new WaitForEndOfFrame();
@@ -72,7 +77,7 @@ public class WordEntry : MonoBehaviour {
             if (passwords.Count() == 4)
             {
                 entered = false;
-                GameManager.instance.interfaceSetup.text.text = "Player 4, enter a word.";
+                text.text = "Player 4, enter a word.";
                 do
                 {
                     yield return new WaitForEndOfFrame();
@@ -89,7 +94,13 @@ public class WordEntry : MonoBehaviour {
         Debug.Log("hi");
         if (QueryWord(myInputField.text))
         {
+            myInputField.image.sprite = blue;
             entered = true;
+        }
+        else
+        {
+            myInputField.image.sprite = red;
+            myInputField.text = "";
         }
         return null;
     }
