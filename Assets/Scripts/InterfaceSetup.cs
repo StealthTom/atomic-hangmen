@@ -24,7 +24,7 @@ public class InterfaceSetup : MonoBehaviour {
 
     public List<Player> SetupUI(int playerNum)
     {
-        Debug.Log("huh");
+        Debug.Log(GameManager.playerNum);
         if(currentUI.Count != 0)
         {
             DestroyUI();
@@ -103,8 +103,9 @@ public class InterfaceSetup : MonoBehaviour {
     {
         for (int count = 0; count < currentUI.Count; count++)
         {
-            Destroy(currentUI[count]);
+            Destroy(currentUI[count].gameObject);
         }
+        setup = false;
         currentUI.Clear();
     }
 }

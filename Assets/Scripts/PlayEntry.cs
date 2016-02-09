@@ -74,8 +74,10 @@ public class PlayEntry : MonoBehaviour
             for (int count = 0; count < GameManager.instance.interfaceSetup.currentUI[currentPlayerIndex].letters.Count; count++)
             {
                 GameManager.instance.interfaceSetup.currentUI[currentPlayerIndex].letters[count].GetComponent<Text>().enabled = true;
+                GameManager.instance.interfaceSetup.currentUI[currentPlayerIndex].letters[count].cycle = false;
+                GameManager.instance.interfaceSetup.currentUI[currentPlayerIndex].letters[count].GetComponent<Text>().text = char.ToString(myInputField.text[count]);
             }
-                won = true;
+            won = true;
             return true;
         }
         return false;

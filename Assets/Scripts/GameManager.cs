@@ -17,6 +17,7 @@ public class GameManager : MonoSingleton<GameManager> {
 
     public string[] passwords;
 
+    [SerializeField]
     private static int _playerNum;
     public static int playerNum
     {
