@@ -47,6 +47,7 @@ public class WordEntry : MonoBehaviour {
 
     public IEnumerator InputCoroutine()
     {
+        myInputField.transform.localPosition = Vector3.zero;
         text.text = "Player 1, enter a word.";
         isRunning = true;
         entered = false;
